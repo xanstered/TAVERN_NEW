@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<objects serializationModel="Studio.02.02.00">
+<objects serializationModel="Studio.02.03.00">
 	<object class="ParameterPreset" id="{b69cf1cf-78e6-4865-8d2d-db6c8ade92f6}">
 		<property name="name">
 			<value>Outside_vol</value>

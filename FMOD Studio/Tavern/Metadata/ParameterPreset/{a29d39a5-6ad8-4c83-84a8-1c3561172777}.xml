@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<objects serializationModel="Studio.02.03.00">
+	<object class="ParameterPreset" id="{a29d39a5-6ad8-4c83-84a8-1c3561172777}">
+		<property name="name">
+			<value>ChargeState</value>
+		</property>
+		<relationship name="folder">
+			<destination>{51e6489d-6a1c-4514-afdf-acce30363fd5}</destination>
+		</relationship>
+		<relationship name="parameter">
+			<destination>{51d3d337-4357-49ab-8754-55c269e2d794}</destination>
+		</relationship>
+	</object>
+	<object class="GameParameter" id="{51d3d337-4357-49ab-8754-55c269e2d794}">
+		<property name="initialValue">
+			<value>0</value>
+		</property>
+	</object>
+</objects>

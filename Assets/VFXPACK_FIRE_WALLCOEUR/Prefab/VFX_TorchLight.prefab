@@ -4774,6 +4774,9 @@ ParticleSystemRenderer:
   m_ReflectionProbeUsage: 0
   m_RayTracingMode: 0
   m_RayTraceProcedural: 0
+  m_RayTracingAccelStructBuildFlagsOverride: 0
+  m_RayTracingAccelStructBuildFlags: 1
+  m_SmallMeshCulling: 1
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
@@ -4841,6 +4844,7 @@ GameObject:
   - component: {fileID: 1752531204454590553}
   - component: {fileID: 8422160780352259166}
   - component: {fileID: 8875129460506213220}
+  - component: {fileID: -6610815787769593031}
   m_Layer: 0
   m_Name: VFX_TorchLight
   m_TagString: Untagged
@@ -9606,6 +9610,9 @@ ParticleSystemRenderer:
   m_ReflectionProbeUsage: 0
   m_RayTracingMode: 0
   m_RayTraceProcedural: 0
+  m_RayTracingAccelStructBuildFlagsOverride: 0
+  m_RayTracingAccelStructBuildFlags: 1
+  m_SmallMeshCulling: 1
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
@@ -9662,6 +9669,25 @@ ParticleSystemRenderer:
   m_MeshWeighting2: 1
   m_MeshWeighting3: 1
   m_MaskInteraction: 0
+--- !u!114 &-6610815787769593031
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3599447086356864173}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bd6a1b863775dcf48af631428a9a9a7c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  chargeChild: {fileID: 0}
+  chargedChild: {fileID: 0}
+  groundChild: {fileID: 0}
+  chargedChildActivationDelay: 0.5
+  destroyDelay: 0.5
+  colorChangeDelay: 0.5
+  colorChangeDuration: 0.5
 --- !u!1 &3872577823437584030
 GameObject:
   m_ObjectHideFlags: 0
@@ -14436,6 +14462,9 @@ ParticleSystemRenderer:
   m_ReflectionProbeUsage: 0
   m_RayTracingMode: 0
   m_RayTraceProcedural: 0
+  m_RayTracingAccelStructBuildFlagsOverride: 0
+  m_RayTracingAccelStructBuildFlags: 1
+  m_SmallMeshCulling: 1
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:

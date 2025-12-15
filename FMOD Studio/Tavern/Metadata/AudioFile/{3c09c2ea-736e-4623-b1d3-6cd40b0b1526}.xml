@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<objects serializationModel="Studio.02.02.00">
+<objects serializationModel="Studio.02.03.00">
 	<object class="AudioFile" id="{3c09c2ea-736e-4623-b1d3-6cd40b0b1526}">
 		<property name="assetPath">
 			<value>Spell/2. Spell_loop.flac</value>

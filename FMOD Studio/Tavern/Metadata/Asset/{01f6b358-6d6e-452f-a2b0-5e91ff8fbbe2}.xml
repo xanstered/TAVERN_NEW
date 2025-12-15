@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<objects serializationModel="Studio.02.02.00">
+<objects serializationModel="Studio.02.03.00">
 	<object class="EncodableAsset" id="{01f6b358-6d6e-452f-a2b0-5e91ff8fbbe2}">
 		<property name="assetPath">
 			<value>Spell/</value>

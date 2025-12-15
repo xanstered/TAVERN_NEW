@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<objects serializationModel="Studio.02.02.00">
+<objects serializationModel="Studio.02.03.00">
 	<object class="AudioFile" id="{dc39408b-25e0-4b0f-9bad-bf59662dba60}">
 		<property name="assetPath">
 			<value>Footsteps/Stone/Foot_stone_land.wav</value>

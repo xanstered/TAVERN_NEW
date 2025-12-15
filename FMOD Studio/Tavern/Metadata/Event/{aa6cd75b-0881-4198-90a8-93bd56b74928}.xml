@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<objects serializationModel="Studio.02.02.00">
+<objects serializationModel="Studio.02.03.00">
 	<object class="Event" id="{aa6cd75b-0881-4198-90a8-93bd56b74928}">
 		<property name="name">
 			<value>Music_2</value>
@@ -73,6 +73,9 @@
 		<relationship name="modules">
 			<destination>{f1883442-50d1-48ed-9fc1-fad18df11e15}</destination>
 		</relationship>
+		<relationship name="markers">
+			<destination>{a140950a-697d-409f-a91f-778c54cd445d}</destination>
+		</relationship>
 	</object>
 	<object class="EventMixerMaster" id="{37013e2b-1209-42c0-9f05-a5e103c06fde}">
 		<relationship name="effectChain">
@@ -114,6 +117,20 @@
 		</relationship>
 		<relationship name="output">
 			<destination>{37013e2b-1209-42c0-9f05-a5e103c06fde}</destination>
+		</relationship>
+	</object>
+	<object class="LoopRegion" id="{a140950a-697d-409f-a91f-778c54cd445d}">
+		<property name="position">
+			<value>0</value>
+		</property>
+		<property name="length">
+			<value>90</value>
+		</property>
+		<relationship name="timeline">
+			<destination>{cc960ac1-e730-4f3f-8017-93c53877efbb}</destination>
+		</relationship>
+		<relationship name="markerTrack">
+			<destination>{85b63491-ec5c-4640-836d-5542949d2cea}</destination>
 		</relationship>
 	</object>
 	<object class="MixerBusEffectChain" id="{409c186e-2f4f-4310-b889-4145f62c0e70}">

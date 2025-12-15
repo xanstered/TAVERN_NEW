@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<objects serializationModel="Studio.02.02.00">
+<objects serializationModel="Studio.02.03.00">
 	<object class="AudioFile" id="{9adf2111-0e14-459b-ad30-ffb2aca73c31}">
 		<property name="assetPath">
 			<value>Footsteps/Ground/Foot_ground_1.flac</value>
