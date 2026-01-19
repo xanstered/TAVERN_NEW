@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<objects serializationModel="Studio.02.03.00">
+	<object class="ParameterPreset" id="{8c23b5dd-d941-4640-8dea-3cec3415fdbc}">
+		<property name="name">
+			<value>spell_viktor</value>
+		</property>
+		<relationship name="folder">
+			<destination>{51e6489d-6a1c-4514-afdf-acce30363fd5}</destination>
+		</relationship>
+		<relationship name="parameter">
+			<destination>{11bc9445-e003-42cf-866a-e1eb83d4eb52}</destination>
+		</relationship>
+	</object>
+	<object class="GameParameter" id="{11bc9445-e003-42cf-866a-e1eb83d4eb52}">
+		<property name="parameterType">
+			<value>2</value>
+		</property>
+		<property name="maximum">
+			<value>3</value>
+		</property>
+		<property name="enumerationLabels">
+			<value>start</value>
+			<value>loop</value>
+			<value>release</value>
+		</property>
+		<property name="initialValue">
+			<value>0</value>
+		</property>
+	</object>
+</objects>
