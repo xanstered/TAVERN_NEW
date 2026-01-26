@@ -2346,6 +2346,7 @@ GameObject:
   m_Component:
   - component: {fileID: 421063489}
   - component: {fileID: 421063490}
+  - component: {fileID: 421063491}
   m_Layer: 3
   m_Name: TavernMusicEmitter
   m_TagString: Untagged
@@ -2399,6 +2400,24 @@ MonoBehaviour:
   OverrideAttenuation: 0
   OverrideMinDistance: 1
   OverrideMaxDistance: 20
+--- !u!114 &421063491
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 421063488}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 80d4722653d006c479b01a9b26fcb663, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  eventEmitter: {fileID: 421063490}
+  SoundOcclusionWidening: 1
+  PlayerOcclusionWidening: 1
+  OcclusionLayer:
+    serializedVersion: 2
+    m_Bits: 8
 --- !u!1 &431090423
 GameObject:
   m_ObjectHideFlags: 0
@@ -6686,6 +6705,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1584074889}
   - component: {fileID: 1584074890}
+  - component: {fileID: 1584074891}
   m_Layer: 3
   m_Name: TavernAmbEmitter
   m_TagString: Untagged
@@ -6739,6 +6759,24 @@ MonoBehaviour:
   OverrideAttenuation: 1
   OverrideMinDistance: 1
   OverrideMaxDistance: 14.9
+--- !u!114 &1584074891
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1584074888}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 80d4722653d006c479b01a9b26fcb663, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  eventEmitter: {fileID: 1584074890}
+  SoundOcclusionWidening: 1
+  PlayerOcclusionWidening: 1
+  OcclusionLayer:
+    serializedVersion: 2
+    m_Bits: 8
 --- !u!1 &1602359161
 GameObject:
   m_ObjectHideFlags: 0
