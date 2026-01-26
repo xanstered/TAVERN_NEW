@@ -3716,18 +3716,18 @@ MonoBehaviour:
     Path: event:/Footsteps/Land
   spellEvent:
     Guid:
-      Data1: -174718131
-      Data2: 1154573390
-      Data3: 1568383903
-      Data4: 1170462694
-    Path: event:/spell/spell_init
+      Data1: 260932621
+      Data2: 1341749213
+      Data3: -1339334765
+      Data4: 738836940
+    Path: event:/Spell
   spellImpactEvent:
     Guid:
-      Data1: 0
-      Data2: 0
-      Data3: 0
-      Data4: 0
-    Path: 
+      Data1: 229489705
+      Data2: 1159691052
+      Data3: -2141543269
+      Data4: -854778969
+    Path: event:/Spell_impact
   insideRoomSnap:
     Guid:
       Data1: 815318414

@@ -21,7 +21,7 @@
 		<property name="enumerationLabels">
 			<value>start</value>
 			<value>loop</value>
-			<value>release</value>
+			<value>Release</value>
 		</property>
 		<property name="initialValue">
 			<value>0</value>

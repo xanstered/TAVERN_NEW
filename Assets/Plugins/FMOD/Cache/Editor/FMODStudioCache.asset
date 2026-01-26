@@ -15,10 +15,10 @@ MonoBehaviour:
   Path: FMOD Studio/Tavern/Build/Desktop/Master.strings.bank
   Name: Master.strings
   StudioPath: bank:/Master.strings
-  lastModified: 639044234393182968
+  lastModified: 639050257676343016
   FileSizes:
   - Name: Desktop
-    Value: 2054
+    Value: 2096
   Exists: 1
 --- !u!114 &-8439102792924349999
 MonoBehaviour:
@@ -48,7 +48,7 @@ MonoBehaviour:
   - Part 3
   - Outro
   Exists: 1
---- !u!114 &-8414900941827242474
+--- !u!114 &-8134496002340294914
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -58,22 +58,22 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: fecb8ef7f94ca804a8ab72049b86782e, type: 3}
-  m_Name: parameter:/spell/spell_viktor
+  m_Name: parameter:/Spell/Spell
   m_EditorClassIdentifier: 
-  Name: spell_viktor
+  Name: Spell
   StudioPath: 
   Min: 0
   Max: 2
   Default: 0
   ID:
-    data1: 341162586
-    data2: 3627193808
+    data1: 352127068
+    data2: 3574177585
   Type: 2
   IsGlobal: 0
   Labels:
-  - start
-  - loop
-  - release
+  - Looping
+  - Release
+  - Cancel
   Exists: 1
 --- !u!114 &-7918976462971667225
 MonoBehaviour:
@@ -101,6 +101,33 @@ MonoBehaviour:
   - Jump
   - Land
   Exists: 1
+--- !u!114 &-6738145542269385579
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/Spell_impact
+  m_EditorClassIdentifier: 
+  Path: event:/Spell_impact
+  Guid:
+    Data1: 229489705
+    Data2: 1159691052
+    Data3: -2141543269
+    Data4: -854778969
+  Banks:
+  - {fileID: 3595093391458802555}
+  IsStream: 0
+  Is3D: 1
+  IsOneShot: 1
+  Parameters: []
+  MinDistance: 1
+  MaxDistance: 20
+  Length: 625
 --- !u!114 &-6559743101711106281
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -296,13 +323,14 @@ MonoBehaviour:
   - {fileID: 2214341115704094415}
   - {fileID: 8172000463505187074}
   - {fileID: 8348287289733400911}
+  - {fileID: -6738145542269385579}
   EditorParameters: []
   MasterBanks:
   - {fileID: 3595093391458802555}
   StringsBanks:
   - {fileID: -8845567955574499022}
   cacheVersion: 131857
-  cacheTime: 639044234393182968
+  cacheTime: 639050257676343016
   SerializableEventsDict:
   - key: event:/Doors_single
     index: 0
@@ -330,8 +358,10 @@ MonoBehaviour:
     index: 11
   - key: event:/Footsteps/Jump
     index: 12
-  - key: event:/spell
+  - key: event:/Spell
     index: 13
+  - key: event:/Spell_impact
+    index: 14
 --- !u!114 &1484351259528218700
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -429,10 +459,10 @@ MonoBehaviour:
   Path: FMOD Studio/Tavern/Build/Desktop/Master.bank
   Name: Master
   StudioPath: bank:/Master
-  lastModified: 639044234393162486
+  lastModified: 639050257676322962
   FileSizes:
   - Name: Desktop
-    Value: 7580256
+    Value: 7581408
   Exists: 1
 --- !u!114 &3781936344527422765
 MonoBehaviour:
@@ -635,24 +665,24 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
-  m_Name: event:/spell
+  m_Name: event:/Spell
   m_EditorClassIdentifier: 
-  Path: event:/spell
+  Path: event:/Spell
   Guid:
-    Data1: -174718131
-    Data2: 1154573390
-    Data3: 1568383903
-    Data4: 1170462694
+    Data1: 260932621
+    Data2: 1341749213
+    Data3: -1339334765
+    Data4: 738836940
   Banks:
   - {fileID: 3595093391458802555}
   IsStream: 0
   Is3D: 1
   IsOneShot: 0
   Parameters:
-  - {fileID: -8414900941827242474}
+  - {fileID: -8134496002340294914}
   MinDistance: 1
   MaxDistance: 20
-  Length: 7300
+  Length: 11125
 --- !u!114 &8589219258674703609
 MonoBehaviour:
   m_ObjectHideFlags: 0

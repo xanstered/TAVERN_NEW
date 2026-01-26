@@ -2,7 +2,7 @@
 <objects serializationModel="Studio.02.03.00">
 	<object class="AudioFile" id="{d5ea5f9b-967a-4dbb-8c1e-07ed59909f8e}">
 		<property name="assetPath">
-			<value>spell_mid.wav</value>
+			<value>Spell/spell_mid.wav</value>
 		</property>
 		<property name="frequencyInKHz">
 			<value>48</value>

@@ -9,19 +9,16 @@ using FMOD.Studio;
 public class AudioSystem : MonoBehaviour
 {
     // EMITTERS //
-    [SerializeField] private StudioEventEmitter TavernMusic_2; // to tylko prezentacja
+    [SerializeField] private StudioEventEmitter TavernMusic_2;
     
-    public FMODUnity.StudioEventEmitter TavernMusic; // �cie�ka do event emittera na scenie
+    public FMODUnity.StudioEventEmitter TavernMusic;
     public StudioEventEmitter TavernAmb;
     public StudioEventEmitter TavernFireplace;
     public StudioEventEmitter OutsideAmb;
 
-    //AudioControl tavernMusic = FindObjectOfType<AudioControl>(); Odwo�ywanie si� do zewn�trznego skryptu
-    //tavernMusic.tavernMusic.IsPlaying();
-
     // EVENTS //
-    [SerializeField] private EventReference doorsEvent_2; // to tylko prezentacja
-    private EventInstance DoorsSound_2; // to tylko prezentacja
+    [SerializeField] private EventReference doorsEvent_2;
+    private EventInstance DoorsSound_2;
 
     FMOD.Studio.EventInstance DoorsSound;
     public EventReference doorsEvent;
@@ -36,7 +33,6 @@ public class AudioSystem : MonoBehaviour
     public FMOD.Studio.EventInstance SpellImpact;
     public EventReference spellImpactEvent;
 
-
     // SNAPSHOTS //
     FMOD.Studio.EventInstance InsideRoom;
     public EventReference insideRoomSnap;
@@ -46,7 +42,7 @@ public class AudioSystem : MonoBehaviour
     public EventReference healthSnapshot;
 
     // VCA // 
-    public FMOD.Studio.VCA GlobalVCA; // klasa VCA
+    public FMOD.Studio.VCA GlobalVCA;
     public FMOD.Studio.VCA MusicVCA;
     public FMOD.Studio.VCA TavernVCA;
     public FMOD.Studio.VCA OutsideVCA;
@@ -79,21 +75,18 @@ public class AudioSystem : MonoBehaviour
     // DISTANCE TO GROUND //
     public float distToGround;
 
-    // Start is called before the first frame update
     void Start()
     {
         // VCA SETUP //
-        GlobalVCA = FMODUnity.RuntimeManager.GetVCA("vca:/Mute"); // podanie klasie VCA �cie�ki do wybranego eventu / snapshotu
+        GlobalVCA = FMODUnity.RuntimeManager.GetVCA("vca:/Mute");
         MusicVCA = FMODUnity.RuntimeManager.GetVCA("vca:/Music");
         TavernVCA = FMODUnity.RuntimeManager.GetVCA("vca:/Tavern_amb");
         OutsideVCA = FMODUnity.RuntimeManager.GetVCA("vca:/Outside_amb");
-        // GlobalVCA.setVolume(DecibelToLinear(-100));
 
         // START SETUP //
         doorsOpened_1 = true;
         doorsOpened_2 = true;
         doorsOpened_3 = true;
-        // muteActive = true;
         muteActive = false;
         isGrounded = true;
         isJumping = false;
@@ -106,11 +99,57 @@ public class AudioSystem : MonoBehaviour
         door_2 = "Tavern_door_room (1)";
         door_3 = "Tavern_door_room (2)";
 
-    // CALC DISTANCE TO GROUND // 
-    distToGround = GetComponent<Collider>().bounds.extents.y;
+        // CALC DISTANCE TO GROUND // 
+        distToGround = GetComponent<Collider>().bounds.extents.y;
 
         if (TavernFireplace == null)
             Debug.LogError("NULL");
+    }
+
+    // CZYSZCZENIE PRZY NISZCZENIU OBIEKTU
+    void OnDestroy()
+    {
+        // Zwolnij wszystkie EventInstance
+        if (SpellSound.isValid())
+        {
+            SpellSound.stop(FMOD.Studio.STOP_MODE.IMMEDIATE);
+            SpellSound.release();
+        }
+        if (DoorsSound.isValid())
+        {
+            DoorsSound.stop(FMOD.Studio.STOP_MODE.IMMEDIATE);
+            DoorsSound.release();
+        }
+        if (FootstepsSound.isValid())
+        {
+            FootstepsSound.stop(FMOD.Studio.STOP_MODE.IMMEDIATE);
+            FootstepsSound.release();
+        }
+        if (JumpSound.isValid())
+        {
+            JumpSound.stop(FMOD.Studio.STOP_MODE.IMMEDIATE);
+            JumpSound.release();
+        }
+        if (LandSound.isValid())
+        {
+            LandSound.stop(FMOD.Studio.STOP_MODE.IMMEDIATE);
+            LandSound.release();
+        }
+        if (InsideRoom.isValid())
+        {
+            InsideRoom.stop(FMOD.Studio.STOP_MODE.IMMEDIATE);
+            InsideRoom.release();
+        }
+        if (Outside.isValid())
+        {
+            Outside.stop(FMOD.Studio.STOP_MODE.IMMEDIATE);
+            Outside.release();
+        }
+        if (HealthSnapshot.isValid())
+        {
+            HealthSnapshot.stop(FMOD.Studio.STOP_MODE.IMMEDIATE);
+            HealthSnapshot.release();
+        }
     }
 
     //!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! FUNCTIONS !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!//
@@ -165,6 +204,7 @@ public class AudioSystem : MonoBehaviour
         else if (doorsNumber == 3)
             doorsOpened_3 = !doorsOpened_3;
     }
+    
     public void PlayDoorSound()
     {
         if (doorsName == door_1)
@@ -197,7 +237,7 @@ public class AudioSystem : MonoBehaviour
 
         if (Physics.Raycast(transform.position, Vector3.down, out hit, distToGround + 0.5f))
         {
-            string surfaceType = "Stone"; // Default surface type
+            string surfaceType = "Stone";
             switch (hit.collider.tag)
             {
                 case "Wood":
@@ -226,7 +266,7 @@ public class AudioSystem : MonoBehaviour
     {
         if (IsGrounded())
         {
-            JumpSound = FMODUnity.RuntimeManager.CreateInstance(jumpEvent); // "event:/Footsteps"
+            JumpSound = FMODUnity.RuntimeManager.CreateInstance(jumpEvent);
 
             if (IsGrounded())
             {
@@ -288,23 +328,41 @@ public class AudioSystem : MonoBehaviour
     }
 
     // SPELL CAST //
+    // SPELL CAST //
     public void SpellCast()
     {
+        // Jeśli już istnieje instancja, zatrzymaj ją najpierw
+        if (SpellSound.isValid())
+        {
+            SpellSound.stop(FMOD.Studio.STOP_MODE.IMMEDIATE);
+            SpellSound.release();
+        }
+
         SpellSound = RuntimeManager.CreateInstance(spellEvent);
         SpellSound.setParameterByNameWithLabel("Spell", "Looping");
+        SpellSound.set3DAttributes(FMODUnity.RuntimeUtils.To3DAttributes(transform));
         SpellSound.start();
     }
 
     public void SpellRelease()
     {
-        SpellSound.setParameterByNameWithLabel("Spell", "Release");
-        SpellSound.release();
+        if (SpellSound.isValid())
+        {
+            SpellSound.setParameterByNameWithLabel("Spell", "Release");
+            // Dźwięk sam się zatrzyma po zakończeniu Release
+            // Ale musimy go zwolnić po pewnym czasie
+            SpellSound.release();
+        }
     }
 
     public void SpellCancel()
     {
-        SpellSound.setParameterByNameWithLabel("Spell", "Cancel");
-        SpellSound.release();
+        if (SpellSound.isValid())
+        {
+            SpellSound.setParameterByNameWithLabel("Spell", "Cancel");
+            // Dźwięk sam się zatrzyma po zakończeniu Cancel
+            SpellSound.release();
+        }
     }
 
     public void SpellImpactSound(Vector3 position)
@@ -321,7 +379,6 @@ public class AudioSystem : MonoBehaviour
         {
             if (hit.collider.CompareTag("Outside") && outsideSnapActivated == false)
             {
-                // mechanika snapshotu
                 Outside = FMODUnity.RuntimeManager.CreateInstance(outsideSnapshot);
                 Outside.start();
                 outsideSnapActivated = !outsideSnapActivated;
@@ -329,7 +386,6 @@ public class AudioSystem : MonoBehaviour
             }
             else if (hit.collider.CompareTag("Inside_stone") && outsideSnapActivated == true)
             {
-                // mechanika snapshotu
                 Outside.stop(FMOD.Studio.STOP_MODE.ALLOWFADEOUT);
                 Outside.release();
                 outsideSnapActivated = !outsideSnapActivated;
@@ -342,14 +398,12 @@ public class AudioSystem : MonoBehaviour
     {
         Debug.Log("doors closed");
         InsideRoom.start();
-        InsideRoom.release();
     }
 
     private void RoomsSnapInstanceStop()
     {
         Debug.Log("doors opened");
         InsideRoom.stop(FMOD.Studio.STOP_MODE.ALLOWFADEOUT);
-        InsideRoom.release();
     }
 
     public void RoomsSnap()

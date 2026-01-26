@@ -6,9 +6,6 @@ using System.ComponentModel;
 public class AudioOcclusion : MonoBehaviour
 {
     [Header("FMOD Event")]
-    //[SerializeField]
-    //private EventReference SelectAudio;
-    //private EventInstance eventInstance;
     [SerializeField]
     private StudioEventEmitter eventEmitter;
     private EventInstance eventInstance;
@@ -35,39 +32,35 @@ public class AudioOcclusion : MonoBehaviour
 
     private void Start()
     {
-        //Audio = RuntimeManager.CreateInstance(SelectAudio);
-        //RuntimeManager.AttachInstanceToGameObject(Audio, GetComponent<Transform>(), GetComponent<Rigidbody>());
-        //Audio.start();
-        //Audio.release();
-
-        //Audio.getDescription(out AudioDes);
-        //Audio.getMinMaxDistance(out MinDistance, out MaxDistance);
-
         eventInstance = eventEmitter.EventInstance;
         eventInstance.getDescription(out eventDes);
         eventDes.getMinMaxDistance(out minDistance, out maxDistance);
 
         Debug.Log(eventDes + " " + minDistance + " " + maxDistance);
 
-        //eventDes = RuntimeManager.GetEventDescription(SelectAudio);
-        //eventDes.getMinMaxDistance(out minDistance, out maxDistance);
-
         listener = FindObjectOfType<StudioListener>();
     }
 
     private void FixedUpdate()
     {
-        eventInstance.isVirtual(out audioIsVirtual); // isVirtual oznacza, �e d�wi�k nadal gra, ale gracz go nie s�yszy
-                                                     // w tej linii sprawdzamy czy d�wi�k jest "wirtualny"
-                                                     // ENG - isVirtual means that the sound is still playing, but the player can't hear it
-                                                     // in this line we check if the sound is "virtual"
-        eventInstance.getPlaybackState(out pb);      // status odtwarzania: starting, playing, stopping, stopped, sustained
+        eventInstance.isVirtual(out audioIsVirtual);
+        eventInstance.getPlaybackState(out pb);
         listenerDistance = Vector3.Distance(transform.position, listener.transform.position);
 
         if (!audioIsVirtual && pb == PLAYBACK_STATE.PLAYING && listenerDistance <= maxDistance)
             OccludeBetween(transform.position, listener.transform.position);
 
         lineCastHitCount = 0f;
+    }
+
+    // CZYSZCZENIE PRZY NISZCZENIU OBIEKTU
+    void OnDestroy()
+    {
+        if (eventInstance.isValid())
+        {
+            eventInstance.stop(FMOD.Studio.STOP_MODE.IMMEDIATE);
+            eventInstance.release();
+        }
     }
 
     private void OccludeBetween(Vector3 sound, Vector3 listener)
@@ -147,6 +140,5 @@ public class AudioOcclusion : MonoBehaviour
     private void SetParameter()
     {
         eventInstance.setParameterByName("Occlusion", lineCastHitCount / 11);
-        //Debug.Log("SET");
     }
 }
