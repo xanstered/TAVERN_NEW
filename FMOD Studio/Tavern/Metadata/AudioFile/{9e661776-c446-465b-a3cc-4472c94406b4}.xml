@@ -2,7 +2,7 @@
 <objects serializationModel="Studio.02.03.00">
 	<object class="AudioFile" id="{9e661776-c446-465b-a3cc-4472c94406b4}">
 		<property name="assetPath">
-			<value>Spell/door_cancel_placeholder.wav</value>
+			<value>door_cancel_placeholder.wav</value>
 		</property>
 		<property name="frequencyInKHz">
 			<value>44.0999985</value>

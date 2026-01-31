@@ -1,7 +1,6 @@
-using UnityEngine;
+﻿using UnityEngine;
 using FMODUnity;
 using FMOD.Studio;
-using System.ComponentModel;
 
 public class AudioOcclusion : MonoBehaviour
 {
@@ -17,11 +16,17 @@ public class AudioOcclusion : MonoBehaviour
     [SerializeField]
     [Range(0f, 10f)]
     private float SoundOcclusionWidening = 1f;
+
     [SerializeField]
     [Range(0f, 10f)]
     private float PlayerOcclusionWidening = 1f;
+
     [SerializeField]
     private LayerMask OcclusionLayer;
+
+    [Header("Debug")]
+    [SerializeField]
+    private bool showDebugRays = true;
 
     private bool audioIsVirtual;
     private float minDistance;
@@ -32,28 +37,57 @@ public class AudioOcclusion : MonoBehaviour
 
     private void Start()
     {
+        if (eventEmitter == null)
+        {
+            Debug.LogError("AudioOcclusion: Brak przypisanego StudioEventEmitter!", this);
+            enabled = false;
+            return;
+        }
+
         eventInstance = eventEmitter.EventInstance;
+
+        if (!eventInstance.isValid())
+        {
+            Debug.LogError("AudioOcclusion: EventInstance jest nieprawidłowy!", this);
+            enabled = false;
+            return;
+        }
+
         eventInstance.getDescription(out eventDes);
         eventDes.getMinMaxDistance(out minDistance, out maxDistance);
 
-        Debug.Log(eventDes + " " + minDistance + " " + maxDistance);
+        Debug.Log($"AudioOcclusion inicjalizacja: Min={minDistance}, Max={maxDistance}", this);
 
         listener = FindObjectOfType<StudioListener>();
+
+        if (listener == null)
+        {
+            Debug.LogError("AudioOcclusion: Nie znaleziono StudioListener na scenie!", this);
+            enabled = false;
+        }
     }
 
     private void FixedUpdate()
     {
+        if (!eventInstance.isValid() || listener == null)
+            return;
+
         eventInstance.isVirtual(out audioIsVirtual);
         eventInstance.getPlaybackState(out pb);
         listenerDistance = Vector3.Distance(transform.position, listener.transform.position);
 
         if (!audioIsVirtual && pb == PLAYBACK_STATE.PLAYING && listenerDistance <= maxDistance)
+        {
             OccludeBetween(transform.position, listener.transform.position);
+        }
+        else
+        {
+            eventInstance.setParameterByName("Occlusion", 0f);
+        }
 
         lineCastHitCount = 0f;
     }
 
-    // CZYSZCZENIE PRZY NISZCZENIU OBIEKTU
     void OnDestroy()
     {
         if (eventInstance.isValid())
@@ -67,13 +101,11 @@ public class AudioOcclusion : MonoBehaviour
     {
         Vector3 SoundLeft = CalculatePoint(sound, listener, SoundOcclusionWidening, true);
         Vector3 SoundRight = CalculatePoint(sound, listener, SoundOcclusionWidening, false);
-
         Vector3 SoundAbove = new Vector3(sound.x, sound.y + SoundOcclusionWidening, sound.z);
         Vector3 SoundBelow = new Vector3(sound.x, sound.y - SoundOcclusionWidening, sound.z);
 
         Vector3 ListenerLeft = CalculatePoint(listener, sound, PlayerOcclusionWidening, true);
         Vector3 ListenerRight = CalculatePoint(listener, sound, PlayerOcclusionWidening, false);
-
         Vector3 ListenerAbove = new Vector3(listener.x, listener.y + PlayerOcclusionWidening * 0.5f, listener.z);
         Vector3 ListenerBelow = new Vector3(listener.x, listener.y - PlayerOcclusionWidening * 0.5f, listener.z);
 
@@ -92,14 +124,11 @@ public class AudioOcclusion : MonoBehaviour
         CastLine(SoundAbove, ListenerAbove);
         CastLine(SoundBelow, ListenerBelow);
 
+        // Kolor debug rays
         if (PlayerOcclusionWidening == 0f || SoundOcclusionWidening == 0f)
-        {
             colour = Color.blue;
-        }
         else
-        {
             colour = Color.green;
-        }
 
         SetParameter();
     }
@@ -110,6 +139,7 @@ public class AudioOcclusion : MonoBehaviour
         float z;
         float n = Vector3.Distance(new Vector3(a.x, 0f, a.z), new Vector3(b.x, 0f, b.z));
         float mn = (m / n);
+
         if (posOrneg)
         {
             x = a.x + (mn * (a.z - b.z));
@@ -120,6 +150,7 @@ public class AudioOcclusion : MonoBehaviour
             x = a.x - (mn * (a.z - b.z));
             z = a.z + (mn * (a.x - b.x));
         }
+
         return new Vector3(x, a.y, z);
     }
 
@@ -131,14 +162,24 @@ public class AudioOcclusion : MonoBehaviour
         if (hit.collider)
         {
             lineCastHitCount++;
-            Debug.DrawLine(Start, End, Color.red);
+            if (showDebugRays)
+                Debug.DrawLine(Start, End, Color.red);
         }
         else
-            Debug.DrawLine(Start, End, colour);
+        {
+            if (showDebugRays)
+                Debug.DrawLine(Start, End, colour);
+        }
     }
 
     private void SetParameter()
     {
-        eventInstance.setParameterByName("Occlusion", lineCastHitCount / 11);
+        float occlusionValue = lineCastHitCount / 11f;
+        eventInstance.setParameterByName("Occlusion", occlusionValue);
+
+        if (showDebugRays && lineCastHitCount > 0)
+        {
+            Debug.Log($"Occlusion: {occlusionValue:F2} ({lineCastHitCount}/11 rays blocked)");
+        }
     }
 }
