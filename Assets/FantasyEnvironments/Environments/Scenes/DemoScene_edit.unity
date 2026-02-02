@@ -2413,11 +2413,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   eventEmitter: {fileID: 421063490}
-  SoundOcclusionWidening: 1
-  PlayerOcclusionWidening: 1
+  SoundOcclusionWidening: 2
+  PlayerOcclusionWidening: 0.4
   OcclusionLayer:
     serializedVersion: 2
     m_Bits: 8
+  showDebugRays: 1
+  showDebugLogs: 0
 --- !u!1 &431090423
 GameObject:
   m_ObjectHideFlags: 0
@@ -6772,11 +6774,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   eventEmitter: {fileID: 1584074890}
-  SoundOcclusionWidening: 1
-  PlayerOcclusionWidening: 1
+  SoundOcclusionWidening: 2
+  PlayerOcclusionWidening: 0.4
   OcclusionLayer:
     serializedVersion: 2
     m_Bits: 8
+  showDebugRays: 1
+  showDebugLogs: 0
 --- !u!1 &1602359161
 GameObject:
   m_ObjectHideFlags: 0

@@ -6,6 +6,7 @@ public class AudioOcclusion : MonoBehaviour
 {
     [Header("FMOD Event")]
     [SerializeField]
+    [Tooltip("StudioEventEmitter źródła dźwięku (np. muzyka, ambient)")]
     private StudioEventEmitter eventEmitter;
     private EventInstance eventInstance;
     private EventDescription eventDes;
@@ -15,18 +16,24 @@ public class AudioOcclusion : MonoBehaviour
     [Header("Occlusion Options")]
     [SerializeField]
     [Range(0f, 10f)]
+    [Tooltip("Szerokość testowania od źródła (dla muzyki: 1-2)")]
     private float SoundOcclusionWidening = 1f;
 
     [SerializeField]
     [Range(0f, 10f)]
+    [Tooltip("Szerokość testowania od gracza (0.5-1.5)")]
     private float PlayerOcclusionWidening = 1f;
 
     [SerializeField]
+    [Tooltip("Warstwa ścian/przeszkód (np. Environment)")]
     private LayerMask OcclusionLayer;
 
     [Header("Debug")]
     [SerializeField]
     private bool showDebugRays = true;
+
+    [SerializeField]
+    private bool showDebugLogs = false;
 
     private bool audioIsVirtual;
     private float minDistance;
@@ -56,7 +63,8 @@ public class AudioOcclusion : MonoBehaviour
         eventInstance.getDescription(out eventDes);
         eventDes.getMinMaxDistance(out minDistance, out maxDistance);
 
-        Debug.Log($"AudioOcclusion inicjalizacja: Min={minDistance}, Max={maxDistance}", this);
+        if (showDebugLogs)
+            Debug.Log($"AudioOcclusion inicjalizacja: Min={minDistance}, Max={maxDistance}", this);
 
         listener = FindObjectOfType<StudioListener>();
 
@@ -76,7 +84,7 @@ public class AudioOcclusion : MonoBehaviour
         eventInstance.getPlaybackState(out pb);
         listenerDistance = Vector3.Distance(transform.position, listener.transform.position);
 
-        if (!audioIsVirtual && pb == PLAYBACK_STATE.PLAYING && listenerDistance <= maxDistance)
+        if (!audioIsVirtual && pb == PLAYBACK_STATE.PLAYING)
         {
             OccludeBetween(transform.position, listener.transform.position);
         }
@@ -177,9 +185,9 @@ public class AudioOcclusion : MonoBehaviour
         float occlusionValue = lineCastHitCount / 11f;
         eventInstance.setParameterByName("Occlusion", occlusionValue);
 
-        if (showDebugRays && lineCastHitCount > 0)
+        if (showDebugLogs && lineCastHitCount > 0)
         {
-            Debug.Log($"Occlusion: {occlusionValue:F2} ({lineCastHitCount}/11 rays blocked)");
+            Debug.Log($"Occlusion: {occlusionValue:F2} ({lineCastHitCount}/11 promieni zablokowanych)");
         }
     }
 }

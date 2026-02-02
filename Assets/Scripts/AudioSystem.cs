@@ -10,7 +10,7 @@ public class AudioSystem : MonoBehaviour
 {
     // EMITTERS //
     [SerializeField] private StudioEventEmitter TavernMusic_2;
-    
+
     public FMODUnity.StudioEventEmitter TavernMusic;
     public StudioEventEmitter TavernAmb;
     public StudioEventEmitter TavernFireplace;
@@ -109,7 +109,6 @@ public class AudioSystem : MonoBehaviour
     // CZYSZCZENIE PRZY NISZCZENIU OBIEKTU
     void OnDestroy()
     {
-        // Zwolnij wszystkie EventInstance
         if (SpellSound.isValid())
         {
             SpellSound.stop(FMOD.Studio.STOP_MODE.IMMEDIATE);
@@ -204,12 +203,12 @@ public class AudioSystem : MonoBehaviour
         else if (doorsNumber == 3)
             doorsOpened_3 = !doorsOpened_3;
     }
-    
+
     public void PlayDoorSound()
     {
         if (doorsName == door_1)
         {
-            if(doorsOpened_1)
+            if (doorsOpened_1)
                 DoorsManager(ref DoorsSound, 1, close);
             else
                 DoorsManager(ref DoorsSound, 1, open);
@@ -228,7 +227,7 @@ public class AudioSystem : MonoBehaviour
             else
                 DoorsManager(ref DoorsSound, 3, open);
         }
-    }    
+    }
 
     // FOOTSTEPS SOUNDS // 
     public void PlayFootsteps()
@@ -331,7 +330,6 @@ public class AudioSystem : MonoBehaviour
     // SPELL CAST //
     public void SpellCast()
     {
-        // Jeśli już istnieje instancja, zatrzymaj ją najpierw
         if (SpellSound.isValid())
         {
             SpellSound.stop(FMOD.Studio.STOP_MODE.IMMEDIATE);
@@ -349,8 +347,7 @@ public class AudioSystem : MonoBehaviour
         if (SpellSound.isValid())
         {
             SpellSound.setParameterByNameWithLabel("Spell", "Release");
-            // Dźwięk sam się zatrzyma po zakończeniu Release
-            // Ale musimy go zwolnić po pewnym czasie
+          
             SpellSound.release();
         }
     }
@@ -360,7 +357,7 @@ public class AudioSystem : MonoBehaviour
         if (SpellSound.isValid())
         {
             SpellSound.setParameterByNameWithLabel("Spell", "Cancel");
-            // Dźwięk sam się zatrzyma po zakończeniu Cancel
+            SpellSound.stop(FMOD.Studio.STOP_MODE.ALLOWFADEOUT);  
             SpellSound.release();
         }
     }
@@ -414,7 +411,7 @@ public class AudioSystem : MonoBehaviour
         {
             InsideRoom = FMODUnity.RuntimeManager.CreateInstance(insideRoomSnap);
         }
-        
+
         if (roomsAmbientActivated == true && doorsName == door_1 && doorsOpened_1 == false)
         {
             RoomsSnapInstanceStart();
